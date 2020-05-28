@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std;
+
+class node{
+    public :
+    //oops ka use
+    int data; //it is a variable which store address of 1 node
+    node* next; //is is a pointer which is storing address of node
+   //constructor
+    node(int d){
+    data = d;
+    next = NULL;
+    }
+};
+	node* takeInputtail( node *head) {
+	int data;
+	cin >> data;
+	//node *head = NULL;
+	node *tail = NULL;
+	while(data != -1) {
+		node *newnode = new node(data);
+		if(head == NULL) {
+			head = newnode;
+			tail = newnode;
+		}
+		else {
+				tail -> next = newnode;
+				tail = tail -> next;
+			}
+      cin >> data;
+		}
+			return head;
+	 }
+    node *at_i(node *head , int i, int data){
+	node *newnode = new node(data); //new node with desired data
+	int count = 0;
+	node *temp = head;
+
+// if we are inserting it at first node
+	if(i == 0){
+		newnode -> next = head;
+		head = newnode;
+		return head;
+	}
+while( temp!= NULL && count < i - 1){
+	temp = temp -> next;
+	count++;
+}
+if( temp != NULL){
+	node *a = temp -> next ; //temp is the node tobe inserted  
+	// a will stored the address of next node after temp
+	temp -> next = newnode; 
+	// temp ke previous me temp ka address store hoga
+	// break the connection with previos node
+	newnode -> next = a;
+	//it create the connection with next node
+  }
+  return head;
+}
+
+  void print(node *head) {
+	while(head != NULL) {
+		cout << head -> data << " ";
+		head = head -> next;
+	}
+}
+
+
+int main(){
+	node *head;
+	head = takeInputtail(NULL);
+	print(head);
+	int i,data;
+	cin>> i >> data;
+	head = at_i(head, i, data);
+	print (head);
+
+}
