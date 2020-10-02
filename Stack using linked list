@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int a;
+    node *next;//pointer to the next element of the stack
+};
+
+class stack
+{
+    node *top;//pointer of node type
+    public :
+    stack ()
+    {
+        top=NULL;//initially the stack has no elements so top points to NULL
+    }
+    void push()
+    {
+        node *ptr;//declaring ptr of type node
+        ptr=new node;//assigning the address of node to ptr. ptr points to node
+        cout<<"\nEnter the element\n";
+        cin>>ptr->a;//enter elements in stack
+        if(top==NULL)//if stack is empty
+        ptr->next=NULL;//make the next pointer (which points to the next element) NULL
+
+        else
+        ptr->next=top;//otherwise make next points to the next element in stack
+        top=ptr;//the ptr moves to the top
+    }
+    void pop()
+    {
+        node *ptr;//declaring ptr of type node
+        ptr=top;//ptr points to top of the array
+        cout<<"\nDeleted element is "<<ptr->a;//printing the element at top
+        top=top->next;//moving the top pointer to the next element
+        delete ptr;//delete node to free the memory
+    }
+    void disp()
+    {
+        node *ptr;//declaring ptr of type node
+        ptr=top;//ptr points to top of the array
+        cout<<"\n";
+        while(ptr!=NULL)//while ptr doent point to NULL
+       { cout<<ptr->a<<"->";
+       ptr=ptr->next;
+       }
+    delete ptr;
+    }
+    ~stack()//destructor
+    {
+        while(top!=NULL)
+        delete top;
+    }
+};
+
+
+int main() {
+stack ob;
+int n;
+char ch='y';
+while(ch=='y')
+{
+cout<<"\nEnter 1:Push, 2:Pop, 3:Display\n";
+cin>>n;
+
+switch(n)
+{
+    case 1: ob.push();
+            break;
+    case 2: ob.pop();
+            break;
+    case 3: ob.disp();
+            break;
+    default: cout<<"\n Wrong input!";
+
+}
+cout<<"\nDo you want to enter more?";
+cin>>ch;
+}
+
+    return 0;
+}
